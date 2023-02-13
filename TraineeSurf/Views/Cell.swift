@@ -13,19 +13,22 @@ final class Cell: UICollectionViewCell {
 
     //MARK: - Outlets
 
-    lazy var nameButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont(name: Fonts.sfProDisplayMedium, size: 14)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = Colors.lightGrayColor
-        button.setTitleColor(Colors.blackColor, for: .normal)
-        return button
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: Fonts.sfProDisplayMedium, size: 14)
+        label.textAlignment = .center
+        label.sizeToFit()
+        label.layer.cornerRadius = 12
+        label.backgroundColor = Colors.lightGrayColor
+        label.textColor = Colors.blackColor
+        return label
     }()
 
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = Colors.lightGrayColor
         setupHierarchy()
         setupLayout()
     }
@@ -34,22 +37,32 @@ final class Cell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = 12
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+
     //MARK: - Setup
 
     private func setupHierarchy() {
-        contentView.addSubview(nameButton)
+        addSubview(nameLabel)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            nameButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            nameButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            nameButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            nameButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
     }
 
     func configure(model: Profession) {
-        nameButton.setTitle(model.name, for: .normal)
+        nameLabel.text = model.name
     }
+
 }

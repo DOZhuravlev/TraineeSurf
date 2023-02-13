@@ -39,7 +39,7 @@ final class InternshipViewController: UIViewController {
 
 //MARK: - SetupCollectionView
 
-extension InternshipViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension InternshipViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         Profession.namesArray.count
     }
@@ -47,40 +47,7 @@ extension InternshipViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as! Cell
         cell.configure(model: Profession.namesArray[indexPath.item])
-
         return cell
     }
-
-    func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { sectionIndex, _ in
-
-            let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(100),
-                                                  heightDimension: .fractionalHeight(1))
-            let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
-
-            // layoutItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-
-            let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(100),
-                                                   heightDimension: .absolute(44))
-            let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: layoutItem, count: 10)
-
-
-
-            // layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            layoutGroup.interItemSpacing = NSCollectionLayoutSpacing.fixed(12)
-
-            let sectionLayout = NSCollectionLayoutSection(group: layoutGroup)
-            //   sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            sectionLayout.orthogonalScrollingBehavior = .continuous
-
-            return sectionLayout
-
-        }
-
-
-
-    }
-
-
 }
 

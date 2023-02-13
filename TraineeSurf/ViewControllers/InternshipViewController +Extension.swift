@@ -77,22 +77,20 @@ extension InternshipViewController {
     }
 
     func createCollectionView() -> UICollectionView {
-        let layout = createLayout()
-
-        /*
-         layout.scrollDirection = .horizontal
-         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-         layout.minimumInteritemSpacing = 12
-         layout.sectionInset.right = 12
-         */
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 12
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }
 
@@ -123,7 +121,6 @@ extension InternshipViewController {
             contentViewBottom.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             contentViewBottom.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             contentViewBottom.topAnchor.constraint(equalTo: view.topAnchor, constant: 478),
-            
 
             nameInternshipLabel.leadingAnchor.constraint(equalTo: contentViewBottom.leadingAnchor, constant: 20),
             nameInternshipLabel.topAnchor.constraint(equalTo: contentViewBottom.topAnchor, constant: 24),
